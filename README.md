@@ -6,8 +6,11 @@ A Book finder and journaling app using React + Typescript and interactive
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies and create the db.
+npm install or yarn install
+npx prisma migrate dev
 
+Then, run the development server:
 ```bash
 npm run dev
 # or
