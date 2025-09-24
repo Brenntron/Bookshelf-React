@@ -24,17 +24,12 @@ export async function GET(request: NextRequest) {
 
   if (booksInDb.length === 0) {
     try {
-      const openLibraryBaseUrl = process.env.OPEN_LIBRARY_BASE_URL;
-
-      if (!openLibraryBaseUrl) {
-        throw new Error('OPEN_LIBRARY_BASE_URL is not defined');
-      }
-
-      const url = new URL(`${openLibraryBaseUrl}search/`);
+      const url = new URL(`https://openlibrary.org/search/`);
       const fields = [
         'title',
         'author_name',
         'author_key',
+        'cover_i',
         'first_publish_year',
         'isbn',
         'subject',
@@ -55,6 +50,7 @@ export async function GET(request: NextRequest) {
           name: doc.author_name?.[index] || 'Unknown Author',
           olid: key,
         })) : [],
+        cover_i: doc.cover_i || 0,
         firstPublishedYear: doc.first_publish_year || 0,
         isbn: doc.isbn || [],
         olid: doc.key.replace('/works/', ''),

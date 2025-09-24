@@ -26,6 +26,7 @@ model Book {
   id                 Int      @id @default(autoincrement())
   author             Author[]
   authorIds          Int[]
+  cover_i            Int
   description        String
   firstPublishedYear Int
   isbn               String[]

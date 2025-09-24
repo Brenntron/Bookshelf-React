@@ -1,15 +1,15 @@
 'use client';
 
 import React from 'react';
-// import Image from 'next/image';
-// import { Book, Calendar, Users, FileText } from 'lucide-react';
-import { Book, Calendar, Users } from 'lucide-react';
-import { Book as BookType } from '@/lib/types';
+import Image from 'next/image';
+// import { Calendar, Users, FileText } from 'lucide-react';
+import { Calendar, Users } from 'lucide-react';
+import { Book } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 
 interface BookCardProps {
-  book: BookType;
-  onAddToShelf?: (book: BookType) => void;
+  book: Book;
+  onAddToShelf?: (book: Book) => void;
 }
 
 export function BookCard({ book, onAddToShelf }: BookCardProps) {
@@ -22,7 +22,13 @@ export function BookCard({ book, onAddToShelf }: BookCardProps) {
     <div className='bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200'>
       <div className='aspect-[3/4] relative bg-gray-100'>
         <div className='w-full h-full flex items-center justify-center'>
-          <Book className='w-16 h-16 text-gray-400' />
+          <Image
+            alt='Book Cover'
+            className='text-gray-400'
+            src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+            height={300}
+            width={200}
+          />
         </div>
       </div>
 

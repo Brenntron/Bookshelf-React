@@ -1,7 +1,6 @@
 export interface Author {
   id: string;
   description?: string;
-  imageUrl?: string;
   name: string;
   olid: string;
 }
@@ -9,8 +8,9 @@ export interface Author {
 export interface Book {
   id: string;
   author: Author[];
+  cover_i: number;
   description: string;
-  firstPublishedYear: string;
+  firstPublishedYear: number;
   isbn: string[];
   olid: string;
   subject: string[];
@@ -20,6 +20,7 @@ export interface Book {
 export interface OpenLibraryWork {
   author_key: string[],
   author_name: string[],
+  cover_i: number;
   first_publish_year: number;
   isbn: string[],
   key: string;
