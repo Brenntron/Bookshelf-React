@@ -15,22 +15,30 @@ datasource db {
 }
 
 model Author {
-  id          Int    @id @default(autoincrement())
-  description String
+  id          Int              @id @default(autoincrement())
+  description String?
   name        String
-  olid        String @unique
-  books       Book[]
+  olid        String           @unique
+  books       AuthorsOnBooks[]
 }
 
 model Book {
-  id                 Int      @id @default(autoincrement())
-  author             Author[]
-  authorIds          Int[]
+  id                 Int              @id @default(autoincrement())
+  authors            AuthorsOnBooks[]
   cover_i            Int
-  description        String
+  description        String?
   firstPublishedYear Int
   isbn               String[]
-  olid               String   @unique
+  olid               String           @unique
   subject            String[]
   title              String
+}
+
+model AuthorsOnBooks {
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId Int
+  book     Book   @relation(fields: [bookId], references: [id])
+  bookId   Int
+
+  @@id([authorId, bookId])
 }
