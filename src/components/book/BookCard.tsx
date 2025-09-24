@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { Book, Calendar, Users, FileText } from 'lucide-react';
+// import Image from 'next/image';
+// import { Book, Calendar, Users, FileText } from 'lucide-react';
+import { Book, Calendar, Users } from 'lucide-react';
 import { Book as BookType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 
@@ -12,10 +13,10 @@ interface BookCardProps {
 }
 
 export function BookCard({ book, onAddToShelf }: BookCardProps) {
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.target as HTMLImageElement;
-    target.style.display = 'none';
-  };
+  // const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  //   const target = e.target as HTMLImageElement;
+  //   target.style.display = 'none';
+  // };
 
   return (
     <div className='bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200'>

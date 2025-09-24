@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'outline' | 'ghost' | 'destructive';
-  size: 'default' | 'sm' | 'lg';
+  size?: 'default' | 'sm' | 'lg';
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -15,7 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-white transition-coloris focus-visible:outline-none focuse-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           {
             "bg-blue-600 text-white hover:bg-blue-700": variant === 'default',
-            "border border-gray-200 bg-white hover:bg-gray-50 hover:text-gray-900": variant === 'outlint',
+            "border border-gray-200 bg-white hover:bg-gray-50 hover:text-gray-900": variant === 'outline',
             "hover:bg-gray-100 hover:text-gray-900": variant === "ghost",
             "bg-red-600 text-white hover:bg-red-700": variant === "destructive",
           },

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { OpenLibraryWork } from '@/lib/types/index';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
   const limit = parseInt(searchParams.get('limit') || '20');
   const authors = searchParams.get('authors');
   const subjects = searchParams.get('subjects');
-  const where: Record<string, any> = {};
+  const where: Record<string, object> = {};
 
   if (subjects && subjects.trim().length > 0) {
     where.subjects = { in: subjects.split(',').map(s => s.trim()).filter(Boolean) }
@@ -37,7 +38,6 @@ export async function GET(request: NextRequest) {
         'first_publish_year',
         'isbn',
         'subject',
-        'cover_i',
         'key',
         'description',
         'publish_place'
@@ -50,19 +50,14 @@ export async function GET(request: NextRequest) {
       url.search = searchParams.toString()
 
       const booksResponse = await axios.get(url.href)
-      const books = booksResponse.data.docs.map((doc: any) => ({
-        id: doc.key.replace('/works/', ''),
+      const books = booksResponse.data.docs.map((doc: OpenLibraryWork) => ({
         author: doc.author_key ? doc.author_key.map((key: string, index: number) => ({
-          id: key,
           name: doc.author_name?.[index] || 'Unknown Author',
           olid: key,
         })) : [],
-        cover_i: doc.cover_i || '',
-        description: doc.description || '',
-        firstPublishedYear: doc.first_publish_year?.toString() || '',
+        firstPublishedYear: doc.first_publish_year || 0,
         isbn: doc.isbn || [],
         olid: doc.key.replace('/works/', ''),
-        placeOfPublication: doc.publish_place?.[0] || '',
         subject: doc.subject || [],
         title: doc.title || '',
       }))
@@ -70,8 +65,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ books });
     } catch (error) {
       console.error('Error fetching books from Open Library:', error);
+      return NextResponse.json({ error });
     }
   } else {
-    return booksInDb;
+    return NextResponse.json({ booksInDb });
   }
 }

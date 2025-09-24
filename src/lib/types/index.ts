@@ -9,14 +9,23 @@ export interface Author {
 export interface Book {
   id: string;
   author: Author[];
-  cover_i: string;
   description: string;
   firstPublishedYear: string;
   isbn: string[];
   olid: string;
-  placeOfPublication: string;
   subject: string[];
   title: string;
+}
+
+export interface OpenLibraryWork {
+  author_key: string[],
+  author_name: string[],
+  first_publish_year: number;
+  isbn: string[],
+  key: string;
+  olid: string;
+  title: string;
+  subject: string[];
 }
 
 export interface SearchFields {

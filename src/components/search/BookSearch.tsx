@@ -18,7 +18,7 @@ export function BookSearch() {
     queryKey: ['books', searchTerm, fields],
     queryFn: () => openLibraryApiService.searchBooks(searchTerm, 20, fields),
     enabled: !!searchTerm,
-    stableTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   const handleSearch = (e: React.FormEvent) => {
